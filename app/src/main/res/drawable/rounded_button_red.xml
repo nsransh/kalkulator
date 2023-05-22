@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#ff4c00" /> <!-- Ubah warna latar belakang sesuai keinginan -->
+    <corners android:radius="1000dp" /> <!-- Ubah radius sesuai keinginan untuk mendapatkan bentuk bulat -->
+</shape>

@@ -31,15 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCalculator"/>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerViewSci"
-        android:name="com.example.calculatorapplication.ui.ScientificFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAngka"
-        tools:layout="@layout/fragment_scientific" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +38,51 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerViewSci">
+        app:layout_constraintTop_toBottomOf="@+id/tvAngka">
+
+        <LinearLayout
+            android:id="@+id/llSci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="146dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:layout_margin="5dp"
+                android:background="@drawable/rounded_button_red"/>
+
+            <Button
+                android:id="@+id/btnSin"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:text="SIN"
+                android:layout_margin="5dp"
+                android:background="@drawable/rounded_button_grey"/>
+
+            <Button
+                android:id="@+id/btnCos"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:text="COS"
+                android:layout_margin="5dp"
+                android:background="@drawable/rounded_button_grey"/>
+
+            <Button
+                android:id="@+id/btnTan"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:text="TAN"
+                android:layout_margin="5dp"
+                android:background="@drawable/rounded_button_grey"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"

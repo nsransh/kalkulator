@@ -2,27 +2,28 @@ package com.example.calculatorapplication.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import kotlin.math.*
-import org.mariuszgromada.math.mxparser.Expression
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.calculatorapplication.R
 import com.example.calculatorapplication.databinding.FragmentCalculatorBinding
+import org.mariuszgromada.math.mxparser.Expression
 import java.text.DecimalFormat
+import kotlin.math.*
 
 class CalculatorFragment : Fragment() {
 
     private lateinit var binding: FragmentCalculatorBinding
+    private lateinit var scientificFragment: ScientificFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        scientificFragment = ScientificFragment()
     }
 
     override fun onCreateView(
@@ -36,44 +37,65 @@ class CalculatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val childFragment = childFragmentManager.findFragmentById(R.id.fragmentContainerViewSci)
-        val btnCancel = childFragment?.view?.findViewById<Button>(R.id.btnCancel)
-        val btnSin = childFragment?.view?.findViewById<Button>(R.id.btnSin)
-        val btnCos = childFragment?.view?.findViewById<Button>(R.id.btnCos)
-        val btnTan = childFragment?.view?.findViewById<Button>(R.id.btnTan)
 
         binding.apply {
-            fragmentContainerViewSci.isVisible = false
-            tvAngka.layoutParams.height = 700 // Ubah tinggi sesuai kebutuhan Anda, misalnya 200 pixel
+            llSci.isVisible = false
+            tvAngka.layoutParams.height = 700
 
             //===========SCI============
             btnSci.setOnClickListener {
                 tvAngka.layoutParams.height = 480
-                fragmentContainerViewSci.isVisible = true
+                llSci.isVisible = true
                 btnSci.isEnabled = false
             }
 
-            btnCancel?.setOnClickListener {
-                fragmentContainerViewSci.isVisible = false
+            btnCancel.setOnClickListener {
+                llSci.isVisible = false
                 btnSci.isEnabled = true
+                tvAngka.layoutParams.height = 700
             }
-            btnSin?.setOnClickListener {
-                val result = calculates()
+            btnSin.setOnClickListener {
+                var result = 0.0
+                if (tvAngka.text.isNotEmpty()){
+                    result = calculates()
+                }
                 val sin = sin(Math.toRadians(result))
-                tvAngka.text = DecimalFormat("0.######").format(sin).toString()
+                if (sin.isNaN()){
+                    tvAngka.hint = DecimalFormat("0.######").format(sin).toString()
+                }else {
+                    tvAngka.text = DecimalFormat("0.######").format(sin).toString()
+                }
             }
-            btnCos?.setOnClickListener {
-                val result = calculates()
+            btnCos.setOnClickListener {
+                var result = 0.0
+                if (tvAngka.text.isNotEmpty()){
+                    result = calculates()
+                }
                 val cos = cos(Math.toRadians(result))
-                tvAngka.text = DecimalFormat("0.######").format(cos).toString()
+                if (cos.isNaN()){
+                    tvAngka.hint = DecimalFormat("0.######").format(cos).toString()
+                }else {
+                    tvAngka.text = DecimalFormat("0.######").format(cos).toString()
+                }
             }
-            btnTan?.setOnClickListener {
-                val result = calculates()
+            btnTan.setOnClickListener {
+                var result = 0.0
+                if (tvAngka.text.isNotEmpty()){
+                    result = calculates()
+                }
                 val tan = tan(Math.toRadians(result))
-                tvAngka.text = DecimalFormat("0.######").format(tan).toString()
+                if (tan.isNaN()){
+                    tvAngka.hint = DecimalFormat("0.######").format(tan).toString()
+                }else {
+                    tvAngka.text = DecimalFormat("0.######").format(tan).toString()
+                }
             }
             btnPersen.setOnClickListener {
-                val persen = calculates()/100
+                var result = 0.0
+                if (tvAngka.text.isNotEmpty()){
+                    result = calculates()
+                }
+                val persen = result/100
                 Log.e("persen", "$persen")
                 tvAngka.text = DecimalFormat("0.######").format(persen).toString()
             }
@@ -128,6 +150,7 @@ class CalculatorFragment : Fragment() {
             }
             btnAc.setOnClickListener {
                 tvAngka.text = ""
+                tvAngka.hint = "0"
             }
 
             //=========kalkulasi =======
